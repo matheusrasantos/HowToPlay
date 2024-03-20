@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/funcoes.js"></script>
+    <script src="../../src/routes/usuarios.js"></script>
+</head>
+<body onload="validarSessao(), AtualizarFeed()">
+    
+    <h1>Listar usuario</h1><br><br><br><br>
+
+    <button onclick="ListagemDeUsuario()"></button>
+   <div id="titulo">Usuários Cadastrados
+    <div> Nome
+    <Div id="UsuarioNome">
+
+
+    </Div><br><br>
+</div><br><br>
+<div> CPF Cadastrados
+    <Div id="UsuarioCPF"> 
+
+
+    </Div><br><br>
+</div>
+<div> Email cadastrado
+    <Div id="UsuarioEmail">
+
+
+    </Div><br><br>
+</div>
+</div>
+</body>
+</html>
+<script>
+function ListagemDeUsuario(params) { 
+    UsuarioNome.innerHTML= `${usuario.nome}` 
+    UsuarioCPF.innerHTML= `${usuario.CPF}` 
+    Usuarioemail.innerHTML= `${usuario.email}` 
+
+    fetch(`/usuario/Listar`) 
+
+
+}
+
+
+
+
+</script>
