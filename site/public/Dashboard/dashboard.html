@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head onload="validarSessao(), atualizarFeed()">
+    <script src="../js/funcoes.js"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width= , initial-scale=1.0">
     <link rel="stylesheet" href="../css/dashboard.css">
     <title>HowToPLay</title>
 </head>
-<body>
+<body  onload="validarSessao(), atualizarFeed()">
     <div class= "container"
     <h1> Dashboard</h1>
     <h2>Bem-vindo! </h2>
@@ -16,6 +18,6 @@
         <a href="/listar-produtos" class="options"> Listar Produtos </a>
         <a href="./cadastro.html">Cadastrar novo colaborador</a>
     </div>
-        <a href="/logout" class="logout-btn">Logout</a>
+        <button onclick="limparSessao()" class="logout-btn">Logout</button>
 </body>
 </html>
