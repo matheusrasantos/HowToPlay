@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head onload="validarSessao(), atualizarFeed()">
+    <script src="../js/funcoes.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <title>HowToPLay</title>
+</head>
+<body  onload="validarSessao(), atualizarFeed()">
+    <div class= "container"
+    <h1> Dashboard</h1>
+    <h2>Bem-vindo, <div id="user" > Usuário</div>! </h2>
+
+    <div class="options">
+        <a href="./ListUsuario.html" class="options">Listar Usuário</a>
+        <a href="/listar-produtos" class="options"> Listar Produtos </a>
+        <a href="./cadastro.html">Cadastrar novo colaborador</a>
+    </div>
+        <button onclick="limparSessao()" class="logout-btn">Logout</button>
+</body>
+</html>
+<script>
+
+var nomeUser = sessionStorage.NOME_USUARIO
+
+user.innerHTML = `${nomeUser}`
+
+
+    
+</script>

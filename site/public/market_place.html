@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HowTo play | Loja </title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./assets/icon/HowTO (2).png">
+    <link rel="stylesheet" href="./css/market_place.css">
+
+</head>
+
+<body style="background-color: white;">
+    <div style=" background-color: black;" class="header">
+        <div class="container">
+            <h1 class="titulo"></h1>
+            <ul class="navbar">
+                <li>
+                    <a href="index.html">Inicial</a>
+                </li>
+
+
+                <li>|</li>
+                <li class="agora">Loja</li>
+                <li>
+                    <a href="./login.html">Área do colaborador</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="garantia">
+        <div class="container">
+            <center><img src="./assets/imgs/ola.gif"></center>
+
+
+        </div><br><br>
+
+    </div>
+
+    <div id="produtos">
+
+    </div>
+
+    </div>
+    </div>
+    </div>
+
+
+    </div>
+    <h2 >Carrinho</h2>
+    <div id="carrinho">
+<h2 style="background-color: white;color: black;"> carrinho está vazio no momento! Adicione algum item</h2>
+
+    </div>
+    <center><button class="btnca" onclick="window.location.href ='login.html'">Prosseguir pro checkout</button></center>
+    <div class="footer">
+
+        <div class="container">
+            <h4>Todos os direitos reservados&copy; Equipe Urano 2024</h4>
+            <h6></h6>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script>
+    var comprado = []
+    const items = [
+        {
+            id: 0,
+            nome: 'Violão Acústico GS-15 Gianinni',
+            preço: 'R$450,00',
+            img: './assets/imgs/Gianinni.png',
+            quantidade: 0
+
+        },
+        {
+            id: 1,
+            nome: 'Guitarra Fender Stratocaster',
+            preço: 'R$850,00',
+            img: './assets/imgs/Stratocaster.png',
+            quantidade: 0
+
+        },
+        {
+            id: 2,
+            nome: 'Teclado Yamaha Piaggero ',
+            preço: 'R$1550,00',
+            img: './assets/imgs/Piaggero.png',
+            quantidade: 0
+
+        },
+        {
+            id: 3,
+            nome: 'Bateria Michael DML422',
+            preço: 'R$2.700,00',
+            img: './assets/imgs/Michael.png',
+            quantidade: 0
+
+        },
+        {
+            id: 4,
+            nome: 'Cavaquinho Cedro Ferreirinha',
+            preço: 'R$600,00',
+            img: './assets/imgs/Ferreirinha.png',
+            quantidade: 0
+
+        },
+        {
+            id: 5,
+            nome: 'Contra-Baixo Strinberg JBS40',
+            preço: 'R$1.200,00',
+            img: './assets/imgs/Strinberg.png',
+            quantidade: 0
+
+        },
+        {
+            id: 6,
+            nome: 'Ukulele Soprano Memphis',
+            preço: 'R$150,00',
+            img: './assets/imgs/Memphis.png',
+            quantidade: 0
+
+        },
+
+    ]
+
+
+    startLoja = () => {
+        var containerProdutos = document.getElementById('produtos');
+        items.map((val) => {
+            console.log(val.nome)
+            containerProdutos.innerHTML += `
+        <div class = "produto-unico">
+            <img src =" `+ val.img + `"
+            <p>`+ val.nome + `</p>` + val.preço + `<br> 
+            <a key ="`+ val.id + `" href="#"> Comprar </a>
+            </div>
+        `;
+        })
+    }
+    startLoja();
+
+    inserirCarrinho = () => {
+        console.log(items)
+        var containerCarrinho = document.getElementById('carrinho');
+        containerCarrinho.innerHTML = "";
+        items.map((val) => {
+            console.log(val.nome)
+            if (val.quantidade > 0) {
+
+                containerCarrinho.innerHTML += `
+                <div class= "checkout">
+                <p style =" float:left;">Produto: `+ val.nome + `</p> 
+                <p style ="float:right;">Quantidade: ` + val.quantidade + `</p><br>
+                <p> Preço: `+val.preço+`</p>
+                 <div style="clear:both"></div>
+                 <hr>
+                 </div>
+                `
+            }
+        })
+    }
+
+
+    var links = document.getElementsByTagName('a');
+
+    for (let i = 0; i < links.length; i++) {
+        links[i].addEventListener("click", function () {
+            let key = this.getAttribute('key');
+            items[key].quantidade++;
+            inserirCarrinho();
+          
+        });
+
+    }
+
+</script>

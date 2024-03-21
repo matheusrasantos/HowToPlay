@@ -1,0 +1,179 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: black;
+  }
+  .banner {
+    height: fit-content;
+    padding: 40px 0;
+    color: white;
+   
+    background-size: cover;
+  }
+  .container background-image{
+    object-fit: cover;
+    
+  }
+  .garantia{ 
+    display: flex;
+    margin: 0;
+    min-height: 70vh;
+    background-color: #ffbd59;
+  } 
+  
+  .container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .header {
+    border-bottom: 3px solid black;
+    height: 50px;
+    background-color: black;
+  }
+  
+  .header .container {
+    justify-content: space-between;
+  }
+  
+  .header a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+  
+  .agora {
+    font-weight: 800;
+  }
+  
+  .navbar {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    color: #f7f7f7;
+  }
+  
+  
+  .titulo {
+    color: #ffffff;
+    width: fit-content;
+    font-weight: 500;
+    
+  }
+
+ *{ 
+     font-family: 'lato',sans-serif;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box; 
+ }
+ #produtos {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2%; 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#carrinho {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2%;
+    display: block;
+}
+
+.produto-unico {
+    width: 32%;
+    margin-right: 1%;
+ margin-top: 20px;
+ margin-bottom: 20px;
+ border-radius: 10px;
+ box-shadow: 0px 0px 10px rgba(0,0,0,.2);
+}
+.btnca{ 
+  width: 50%;
+  background-color: transparent;
+  border: 2px black solid;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin-top: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: .2s;
+  color: black;
+
+}
+.btnca:hover{ 
+  background-color: #b4b4b4;
+  letter-spacing: 2px;
+}
+
+.produto-unico a{
+  text-decoration: none;
+  color: black;
+  background-color: transparent;
+  border: solid 2px black;
+  transition: .2s;
+text-align: center;
+display: block;
+cursor: pointer;
+text-transform: uppercase;
+border-radius: 5px;
+font-size: 13px;
+
+}
+.produto-unico a:hover{
+  background-color: #b4b4b4;
+  letter-spacing: 2px;
+}
+
+h2{
+    background-color: black;
+    padding: 10px 0;
+    text-align: center;
+    color: #ffffff;
+}
+
+.checkout{
+ 
+  border-bottom: 2px dotted;
+  padding: 10px 0;
+}
+
+.produto-unico img{
+max-width: 100%;
+border-radius: 10px;
+object-fit: cover;
+border-radius: 10px 10px 0 0;
+}
+
+.produto-unico p{
+ text-align: center;
+ font-size: 16px;
+ padding: 10px;
+
+}
+.produto-unico button{ 
+
+    width: 100%;
+    background-color: transparent;
+    border: 2px #b4b4b4 solid;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-top: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: .2s;
+}
+.produto-unico button:hover{
+  background-color: #b4b4b4;
+  letter-spacing: 2px;
+}
