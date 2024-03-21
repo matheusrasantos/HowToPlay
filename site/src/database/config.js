@@ -3,17 +3,11 @@ var sql = require('mssql');
 
 
 var mySqlConfig = {
-<<<<<<< HEAD
     host: "localhost",
     database: "HowToPlay",
     user: "root",
     password: "victor1122",
-=======
-    host: "localhost:3306",
-    database: "HowToPlay",
-    user: "root",
-    password: "121314",
->>>>>>> 0e6e9435d32793abc25be6d3fe516680bb23f900
+
 };
 
 function executar(instrucao) {
