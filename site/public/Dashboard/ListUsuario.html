@@ -11,7 +11,11 @@
     
     <h1>Listar usuario</h1><br><br><br><br>
 
+<<<<<<< HEAD
     <button onclick="ListagemDeUsuario()">Listar</button>
+=======
+    <button onclick="ListagemDeUsuario()"></button>
+>>>>>>> 0e6e9435d32793abc25be6d3fe516680bb23f900
    <div id="titulo">Usuários Cadastrados
     <div> Nome
     <Div id="UsuarioNome">
@@ -36,6 +40,7 @@
 </html>
 <script>
 function ListagemDeUsuario(params) { 
+<<<<<<< HEAD
    
 
     fetch("/usuarios/listar", {
@@ -62,6 +67,13 @@ function ListagemDeUsuario(params) {
         })
         }
 )
+=======
+    UsuarioNome.innerHTML= `${usuario.nome}` 
+    UsuarioCPF.innerHTML= `${usuario.CPF}` 
+    Usuarioemail.innerHTML= `${usuario.email}` 
+
+    fetch(`/usuario/Listar`) 
+>>>>>>> 0e6e9435d32793abc25be6d3fe516680bb23f900
 
 
 }

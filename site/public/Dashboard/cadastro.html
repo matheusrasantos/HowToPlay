@@ -92,7 +92,11 @@
 
 <script>
     function cadastrar() {
+<<<<<<< HEAD
         //aguardar();
+=======
+        aguardar();
+>>>>>>> 0e6e9435d32793abc25be6d3fe516680bb23f900
 
         var nomeVar = nome_input.value;
         var emailVar = email_input.value;
@@ -130,10 +134,17 @@
             if (resposta.ok) {
                 cardErro.style.display = "block";
 
+<<<<<<< HEAD
                 mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela principal...";
 
                 setTimeout(() => {
                     window.location = "dashboard.html";
+=======
+                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                setTimeout(() => {
+                    window.location = "login.html";
+>>>>>>> 0e6e9435d32793abc25be6d3fe516680bb23f900
                 }, "2000")
                 
                 limparFormulario();

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "projeto-HowToPlay",
   "version": "1.0.0",
   "description": "",
@@ -20,3 +21,13 @@
     "path": "^0.12.7"
   }
 }
+=======
+    "name": "site",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+      "start": "node ./site/app.js",
+      "postinstall": "cd site && npm install"
+    }
+  }
+>>>>>>> 0e6e9435d32793abc25be6d3fe516680bb23f900
