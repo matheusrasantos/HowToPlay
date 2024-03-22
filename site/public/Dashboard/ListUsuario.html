@@ -7,9 +7,10 @@
     <script src="../js/funcoes.js"></script>
     <script src="../../src/routes/usuarios.js"></script>
 </head>
-<body onload="validarSessao(), AtualizarFeed()">
-    
+<body >
+    //onload="validarSessao(), AtualizarFeed()"
     <h1>Listar usuario</h1><br><br><br><br>
+    <a href="./cadastro.html" style="margin-left: 70%;">Cadastrar novo colaborador</a><br><br>
 
     <button onclick="ListagemDeUsuario()">Listar</button>
     <div id="dadosUsuario"></div>
@@ -23,9 +24,7 @@
 </html>
 <script>
 function ListagemDeUsuario(params) { 
-            var nome 
-            var email 
-            var cpf 
+            
 
     fetch("/usuarios/listar", {
         method: "GET",
@@ -42,7 +41,7 @@ function ListagemDeUsuario(params) {
             let tabelaHTML = "<table border='1'>";
         tabelaHTML += "<tr><th>Email</th><th>CPF</th><th>Nome</th></tr>";
 
-        // Iterando sobre cada objeto no array JSON retornado
+        
         json.forEach(usuario => {
             tabelaHTML += "<tr>";
             tabelaHTML += "<td>" + usuario.email + "</td>";
@@ -53,7 +52,7 @@ function ListagemDeUsuario(params) {
 
         tabelaHTML += "</table>";
 
-        // Exibindo a tabela na div com id "dadosUsuario"
+       
         document.getElementById("dadosUsuario").innerHTML = tabelaHTML;
         }).catch(error => console.error('Erro', error))
         }

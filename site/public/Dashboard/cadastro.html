@@ -20,8 +20,8 @@
         rel="stylesheet">
 </head>
 
-<body  onload="validarSessao(), atualizarFeed()">
-
+<body  >
+    //onload="validarSessao(), atualizarFeed()"
     <div class="header">
         <div class="container">
             <h1 class="titulo"></h1>
@@ -56,8 +56,14 @@
 
                     
                     <span class="tipo_campo">CPF:</span>
-                    <input id="CPF_input" type="number" placeholder="******">
+                    <input id="CPF_input" type="cpf" placeholder="******">
 
+                    <select class="tipo_campo" value="cargo">
+                        <option value="x">Selecione o cargo</option>
+                        <option value="1">Administrador</option>
+                     <option value="2">Estoquista</option>
+
+                    </select>
                     <span class="tipo_campo">Senha:</span>
                     <input id="senha_input" type="password" placeholder="******">
 
@@ -99,8 +105,16 @@
         var CPFVar = CPF_input.value;
         var senhaVar = senha_input.value;
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
+        var cargoVar
 
-        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == ""|| CPFVar == "") {
+        if (cargo.value == 1 ) {
+            cargoVar = "Administrador"
+
+        } else{ 
+            cargoVar ="Estoquista"
+        }
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == ""|| CPFVar == "" || cargoVar =="x") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
 
@@ -122,6 +136,7 @@
                 emailServer: emailVar,
                 senhaServer: senhaVar,
                 CPFServer: CPFVar,
+                cargoVar: cargoServer
             })
         }).then(function (resposta) {
 
