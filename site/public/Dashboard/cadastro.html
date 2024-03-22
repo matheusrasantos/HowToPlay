@@ -58,7 +58,7 @@
                     <span class="tipo_campo">CPF:</span>
                     <input id="CPF_input" type="cpf" placeholder="******">
 
-                    <select class="tipo_campo" value="cargo">
+                    <select class="tipo_campo" id="cargo">
                         <option value="x">Selecione o cargo</option>
                         <option value="1">Administrador</option>
                      <option value="2">Estoquista</option>
@@ -136,7 +136,7 @@
                 emailServer: emailVar,
                 senhaServer: senhaVar,
                 CPFServer: CPFVar,
-                cargoVar: cargoServer,
+                cargoServer: cargoVar,
             })
         }).then(function (resposta) {
 

@@ -24,11 +24,13 @@ function listarProduto(req, res) {
 }
 
 function cadastrar(req, res) {
-    var nome = req.body.nomeProdServer;
-    var preco = req.body.precoProdServer;
-    var estoque = req.body.estoqueProdServer;
+    var nome = req.body.nomeServer;
+    var preco = req.body.precoServer;
+    var estoque = req.body.estoqueServer;
    
-    
+    console.log(nome)
+    console.log(preco)
+    console.log(estoque)
     if (nome == undefined) {
         res.status(400).send("O nome do produto está undefined!");
     } else if (preco == undefined) {

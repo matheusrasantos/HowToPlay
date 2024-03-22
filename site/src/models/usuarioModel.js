@@ -23,7 +23,7 @@ function cadastrar(nome, email,CPF, cargo, senha) {
     
 
     var instrucao = `
-        INSERT INTO usuario (nome, email, CPF,senha, estado) VALUES ('${nome}', '${email}', '${CPF}', '${cargo}','${senha}','true');
+        INSERT INTO usuario (nome, email, CPF, cargo, senha, estado) VALUES ('${nome}', '${email}', '${CPF}', '${cargo}','${senha}',true);
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

@@ -89,12 +89,12 @@
     function cadastrar() {
         //aguardar();
 
-        var nomeProdVar = nomeProd_input.value;
-        var precoProdVar = precoProd_input.value;
+        var nomeVar = nomeProd_input.value;
+        var precoVar = precoProd_input.value;
         var estoqueVar= estoque_input.value;
         
 
-        if (nomeProdVar == "" || precoProdVar == "" || estoqueVar == "" ) {
+        if (nomeVar == "" || precoVar == "" || estoqueVar == "" ) {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
 
@@ -112,9 +112,9 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nomeProdServer: nomeProdVar,
-                precoProdServer: precoProdVar,
-                estoqueServer: estoqueVar,
+                nomeServer: nomeVar,
+                precoServer: precoVar,
+                estoqueServer: estoqueVar
                 
             })
         }).then(function (resposta) {
