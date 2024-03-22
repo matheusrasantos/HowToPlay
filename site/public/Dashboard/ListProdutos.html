@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/funcoes.js"></script>
+    <script src="../../src/routes/produtos.js"></script>
+</head>
+<body >
+    //onload="validarSessao(), AtualizarFeed()"
+    <h1>Listar usuario</h1><br><br><br><br>
+    <a href="./cadastroProduto.html" style="margin-left: 70%;">Cadastrar novo Produto/a><br><br>
+
+    <button onclick="ListagemDeProdutos()">Listar</button>
+    <div id="dadosProduto"></div>
+
+   
+
+    </Div><br><br>
+</div>
+</div>
+</body>
+</html>
+<script>
+function ListagemDeProdutos(params) { 
+            
+
+    fetch("/produtos/listar", {
+        method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+    }).then(function (resposta) {
+            console.log("Realizei a consulta")
+            console.log(resposta)
+        resposta.json().then(json =>{ 
+            console.log(json)
+            console.log(JSON.stringify(json))
+            
+            let tabelaHTML = "<table border='1'>";
+        tabelaHTML += "<tr><th>Email</th><th>CPF</th><th>Nome</th></tr>";
+
+        
+        json.forEach(produtos => {
+            tabelaHTML += "<tr>";
+            tabelaHTML += "<td>" + produtos.nome + "</td>";
+            tabelaHTML += "<td>" + produtos.preco + "</td>";
+            tabelaHTML += "<td>" + produtos.estoque + "</td>";
+            tabelaHTML += "</tr>";
+        });
+
+        tabelaHTML += "</table>";
+
+       
+        document.getElementById("dadosUsuario").innerHTML = tabelaHTML;
+        }).catch(error => console.error('Erro', error))
+        }
+)
+
+
+}
+
+
+
+
+</script>

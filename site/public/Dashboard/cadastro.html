@@ -44,7 +44,7 @@
         </div>
         <div class="container tamanho-conteudo">
             <div class="card medio">
-                <h2>Bem-vindo!</h2>
+                <h2>Novo Colaborador</h2>
                 <div class="formulario">
 
 
@@ -136,7 +136,7 @@
                 emailServer: emailVar,
                 senhaServer: senhaVar,
                 CPFServer: CPFVar,
-                cargoVar: cargoServer
+                cargoVar: cargoServer,
             })
         }).then(function (resposta) {
 
@@ -148,7 +148,7 @@
                 mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela principal...";
 
                 setTimeout(() => {
-                    window.location = "dashboard.html";
+                    window.location = "ListUsuario.html";
                 }, "2000")
                 
                 limparFormulario();
