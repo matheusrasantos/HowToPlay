@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Barlow', "Segoe UI", Tahoma, Verdana, sans-serif;
+    background-image: url(".././assets/imgs/fundo_login.jpg");
+}
+
+h1 {
+    color: black;
+    text-align: center; 
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+button {
+    display: block;
+    width: 200px;
+    height: 50px;
+    margin: 20px auto;
+    background-color: #4CAF50;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#dadosUsuario {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid white;
+    padding: 15px;
+    text-align: left;
+}
+
+th{
+    background-color: #4CAF50;
+    color: white;
+}

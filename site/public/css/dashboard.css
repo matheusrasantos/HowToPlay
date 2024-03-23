@@ -1,27 +1,104 @@
-body{ 
-    font-family: Arial, Helvetica, sans-serif;
+body {
     margin: 0;
     padding: 0;
+    font-family: 'Barlow', "Segoe UI", Tahoma, Verdana, sans-serif;
+    background-image: url(".././assets/imgs/fundo_login.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-.container{ 
-    max-width: 800px;
-    margin: 20px auto; 
-    padding: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
-}
-h1{ 
-    text-align: center;
-}
-.options {
+
+.h2{
+
+    margin: auto;
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    height: 400px;
+    font-size: 36px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-between;
+    background-color: transparent;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    align-items: center;
+
+    justify-content: center;
+    background-size: cover;
+
 }
-.option:hover { 
-    background-color: #0056b3;
+
+.container {
+
+
+    margin-top: 50px;
+    font-size: 36px;
+    margin: auto;
+    background-color: transparent;
+    height: fit-content;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    align-items: center;
+    border-radius: 4px;
+    justify-content: center;
 }
-.logout-btn{ 
-    display: block;
-    margin-top: 20px;
+
+
+.flogout-btn {
+    width: 100%;
+    background-color: transparent;
+    border: 2px black solid;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-top: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: .2s;
+    color: black;
+    cursor: pointer;
+
+}
+
+.flogout-btn:hover {
+    background-color: #686868;
+    letter-spacing: 2px;
+}
+
+
+
+.btn-logout {
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    background-color: #32b9cd;
+    color: white;
+    border-radius: 10px;
     text-align: center;
+    padding: 10px 15px;
+    margin-bottom: 100px;
+    cursor: pointer;
+}
+
+button {
+    display: block;
+    width: 200px;
+    height: 50px;
+    margin: 20px auto;
+    background-color: #4CAF50;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #45a049;
 }
