@@ -19,4 +19,12 @@ router.post("/deletar", function (req, res) {
     produtosController.excluir(req, res);
 });
 
+router.post("/ativar", function(req,res) {
+    produtosController.ativar(req,res);
+});
+
+router.post("/desativar", function(req,res) {
+    produtosController.ativar(req,res);
+});
+
 module.exports = router;

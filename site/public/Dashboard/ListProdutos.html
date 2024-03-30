@@ -1,67 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="../js/funcoes.js"></script>
     <script src="../../src/routes/produtos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../css/ListProdutos.css">
 </head>
-<body >
-    //onload="validarSessao(), AtualizarFeed()"
-    <h1>Listar usuario</h1><br><br><br><br>
-    <a href="./cadastroProduto.html" style="margin-left: 70%;">Cadastrar novo Produtos</a><br><br>
-    
-    <button onclick="ListagemDeProdutos()">Listar</button>
 
+<body onload="ListagemDeProdutos()">
+    //onload="validarSessao(), AtualizarFeed()"
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo"></h1>
+            <ul class="navbar">
+                <li style="margin-left: 90%;">
+                    <a href="./dashboard.html">
+                        Voltar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <h1>Listar produtos</h1><br><br><br><br>
+    <a href="./cadastroProduto.html"><button style="margin-left: 70%;"> Adicionar novo produto</button></a>
     <div id="dadosProduto"></div>
 
-   
+
 
     </Div><br><br>
-</div>
-</div>
+    </div>
+    </div>
 </body>
+
 </html>
 <script>
-function ListagemDeProdutos(params) { 
-            
+    function ListagemDeProdutos(params) {
 
-    fetch("/produtos/listar", {
-        method: "GET",
+
+        fetch("/produtos/listar", {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
-    }).then(function (resposta) {
+        }).then(function (resposta) {
             console.log("Realizei a consulta")
             console.log(resposta)
-        resposta.json().then(json =>{ 
-            console.log(json)
-            console.log(JSON.stringify(json))
-            
-            let tabelaHTML = "<table border='1'>";
-        tabelaHTML += "<tr><th>Nome</th><th>Preço</th><th>Qtd Estoque</th></tr>";
+            resposta.json().then(json => {
+                console.log(json)
+                console.log(JSON.stringify(json))
 
-        
-        json.forEach(produtos => {
-            tabelaHTML += "<tr>";
-            tabelaHTML += "<td>" + produtos.nome + "</td>";
-            tabelaHTML += "<td>" + "R$" + produtos.preco + "</td>";
-            tabelaHTML += "<td>" + produtos.estoque + "</td>";
-            tabelaHTML += "</tr>";
-        });
+                let tabelaHTML = "<table border='1'>";
+                tabelaHTML += "<tr><th>Id</th><th>Nome</th><th>Preço</th><th>Qtd Estoque</th><th>Status</th><th>Opções</th></tr>";
 
-        tabelaHTML += "</table>";
 
-       
-        document.getElementById("dadosProduto").innerHTML = tabelaHTML;
-        }).catch(error => console.error('Erro', error))
+                json.forEach(produtos => {
+                    tabelaHTML += "<tr id='linha-" + produtos.id + "'>";
+                    tabelaHTML += "<td>" + produtos.id + "</td>";
+                    tabelaHTML += "<td>" + produtos.nome + "</td>";
+                    tabelaHTML += "<td>" + "R$" + produtos.preco + "</td>";
+                    tabelaHTML += "<td>" + produtos.estoque + "</td>";
+                    var estadoTexto = produtos.estado ? "Desativar" : "Ativar";
+                    tabelaHTML += "<td><button onclick='AtivarBtn(\"" + produtos.nome + "\", " + produtos.estado + ")' id='btn-" + produtos.nome + "'>"
+                        + estadoTexto + "</button></td>";
+                    tabelaHTML += "<td><i class='fas fa-edit' onclick='editarProduto(\"" + produtos.id + "\")'></i> <i class='fas fa-trash-alt' onclick='deletarProduto(\"" + produtos.id + "\")'></i></td>";
+
+                    tabelaHTML += "</tr>";
+                });
+
+                tabelaHTML += "</table>";
+
+
+                document.getElementById("dadosProduto").innerHTML = tabelaHTML;
+            }).catch(error => console.error('Erro', error))
         })
 
 
-}
+    }
+    function AtivarBtn(nome, estado) {
+        var btn = document.getElementById('btn-' + nome);
+        var nomeVar = nome;
 
+        if (estado === 0) {
+            fetch("/produtos/ativar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeVar
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO AtivarBtn()")
+                btn.innerHTML = "Desativar";
+                btn.setAttribute("onclick", "AtivarBtn('" + nomeVar + "', 1)");
+            });
+            console.log("Ativar produto: " + nome);
+        } else {
+            fetch("/produtos/desativar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeVar
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO AtivarBtn()")
+                btn.innerHTML = "Ativar";
+                btn.setAttribute("onclick", "AtivarBtn('" + nomeVar + "', 0)");
+            });
+            console.log("Desativar produto: " + nome);
+        }
+    }
+    function deletarProduto(id) {
+        
+        var idVar = id
+        console.log(id)
+        fetch("/produtos/deletar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: idVar
+            })
+        }).then(function (resposta) {
+        console.log("Produto deletado com sucesso.");
+
+        document.getElementById("linha-" + idVar).remove();
+    })
+    }
 
 
 

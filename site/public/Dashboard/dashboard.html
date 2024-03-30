@@ -13,16 +13,33 @@
     <div class= "container"
     <h1> Dashboard</h1>
     <h2>Bem-vindo, <div id="user" > Usuário</div>! </h2>
-
+    <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+    </div>
     <div class="options">
-        <a href="./ListUsuario.html" class="options">Usuário</a>
-        <a href="ListProdutos.html" class="options"> Produtos </a>
+        <button onclick="Validaruser()">Usuário</button></a>
+        <a href="ListProdutos.html" class="options"><button> Produtos</button> </a>
         
     </div>
         <button onclick="limparSessao()" class="logout-btn">Logout</button>
 </body>
 </html>
 <script>
+function Validaruser() {
+    var cargo = sessionStorage.CARGO_USUARIO;
+
+    if (cargo =='Administrador') {
+        window.location = "./ListUsuario.html"
+        
+    }else{
+        console.log("O cadastro é de estoquista");
+                            cardErro.style.display = "block";
+                    mensagem_erro.innerHTML = "Você não tem permissão para acessar este ambiente.";
+                    setInterval(sumirMensagem, 3000)
+                }
+} function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
 
 var nomeUser = sessionStorage.NOME_USUARIO
 

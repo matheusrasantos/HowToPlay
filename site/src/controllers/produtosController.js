@@ -23,6 +23,69 @@ function listarProduto(req, res) {
         );
 }
 
+function ativar(req, res) {
+
+    var nome = req.body.nomeServer;
+
+    produtosModel.ativar(nome)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function desativar(req, res) {
+
+    var nome = req.body.nomeServer;
+
+    produtosModel.desativar(nome)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function excluir(req, res) {
+
+    var id = req.body.idServer;
+
+    produtosModel.excluir(id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao deletar produto! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var preco = req.body.precoServer;
@@ -62,4 +125,7 @@ module.exports = {
     cadastrar,
     listarProduto,
     testarProduto,
+    ativar,
+    desativar,
+    excluir
 }

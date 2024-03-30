@@ -19,4 +19,11 @@ CREATE TABLE produtos(
 id INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(50),
 preco FLOAT,
-estoque int)
+estoque int,
+estado boolean);
+
+insert into usuario VALUES ( "1",
+"victor", "victor@email.com","50371887844","Administrador", "victor1122", true );
+
+
+

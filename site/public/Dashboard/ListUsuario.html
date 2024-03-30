@@ -3,17 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HowToPlay | Usuários</title>
     <script src="../js/funcoes.js"></script>
     <script src="../../src/routes/usuarios.js"></script>
     <link rel="stylesheet" href="../css/ListProdutos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body >
+</head>
+<body onload="ListagemDeUsuario()">
     //onload="validarSessao(), AtualizarFeed()"
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo"></h1>
+            <ul class="navbar">
+                <li style="margin-left: 90%;">
+                    <a href="./dashboard.html">
+                        Voltar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <h1>Listar usuario</h1><br><br><br><br>
-    <a href="./cadastro.html" style="margin-left: 70%;">Cadastrar novo colaborador</a><br><br>
+    <a href="./cadastro.html"><button style="margin-left: 70%;"> Adicionar novo colaborador</button></a>
 
-    <button onclick="ListagemDeUsuario()">Listar</button>
+    
     <div id="dadosUsuario"></div>
 
    
@@ -24,43 +38,94 @@
 </body>
 </html>
 <script>
-function ListagemDeUsuario(params) { 
-            
-
+function ListagemDeUsuario() {
     fetch("/usuarios/listar", {
         method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        console.log("Realizei a consulta");
+        resposta.json().then(json => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+
+            let tabelaHTML = "<table border='1'>";
+            tabelaHTML += "<tr><th>ID</th><th>Nome</th><th>Email</th><th>Status</th><th>Opções</th></tr>";
+
+            json.forEach(usuario => {
+                tabelaHTML += "<tr id='linha-" + usuario.id + "'>";
+                tabelaHTML += "<td>" + usuario.id + "</td>";
+                tabelaHTML += "<td>" + usuario.nome + "</td>";
+                tabelaHTML += "<td>" + usuario.email + "</td>";
+                var estadoTexto = usuario.estado ? "Desativar" : "Ativar";
+                tabelaHTML += "<td><button onclick='AtivarBtn(\"" + usuario.nome + "\", " + usuario.estado + ")' id='btn-" + usuario.nome + "'>" + estadoTexto + "</button></td>";
+                tabelaHTML += "<td><i class='fas fa-edit' onclick='editarProduto(\"" + usuario.id + "\")'></i> <i class='fas fa-trash-alt' onclick='deletarProduto(\"" + usuario.id + "\")'></i></td>";
+                tabelaHTML += "</tr>";
+            });
+
+            tabelaHTML += "</table>";
+
+            document.getElementById("dadosUsuario").innerHTML = tabelaHTML;
+        }).catch(error => console.error('Erro', error))
+    });
+}
+
+function AtivarBtn(nome, estado) {
+    var btn = document.getElementById('btn-' + nome);
+    var nomeVar = nome;
+
+    if (estado === 0) { 
+        fetch("/usuarios/ativar", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            }
-    }).then(function (resposta) {
-            console.log("Realizei a consulta")
-            console.log(resposta)
-        resposta.json().then(json =>{ 
-            console.log(json)
-            console.log(JSON.stringify(json))
-            
-            let tabelaHTML = "<table border='1'>";
-        tabelaHTML += "<tr><th>Email</th><th>CPF</th><th>Nome</th></tr>";
-
-        
-        json.forEach(usuario => {
-            tabelaHTML += "<tr>";
-            tabelaHTML += "<td>" + usuario.email + "</td>";
-            tabelaHTML += "<td>" + usuario.CPF + "</td>";
-            tabelaHTML += "<td>" + usuario.nome + "</td>";
-            tabelaHTML += "</tr>";
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO AtivarBtn()")
+            btn.innerHTML = "Desativar";
+            btn.setAttribute("onclick", "AtivarBtn('" + nomeVar + "', 1)");
         });
+        console.log("Ativar usuário: " + nome);
+    } else { 
+        fetch("/usuarios/desativar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO AtivarBtn()")
+            btn.innerHTML = "Ativar";
+            btn.setAttribute("onclick", "AtivarBtn('" + nomeVar + "', 0)");
+        });
+        console.log("Desativar usuário: " + nome);
+    }
+}function deletarProduto(id) {
+        
+        var idVar = id
+        console.log(id)
+        fetch("/usuarios/deletar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: idVar
+            })
+        }).then(function (resposta) {
+        console.log("usuario deletado com sucesso.");
+        // Remover a linha da tabela correspondente ao produto excluído
+        document.getElementById("linha-" + idVar).remove();
+    })
+    }
 
-        tabelaHTML += "</table>";
 
-       
-        document.getElementById("dadosUsuario").innerHTML = tabelaHTML;
-        }).catch(error => console.error('Erro', error))
-        }
-)
-
-
-}
 
 
 

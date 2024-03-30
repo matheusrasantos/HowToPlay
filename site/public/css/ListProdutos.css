@@ -33,7 +33,7 @@ button:hover {
 }
 
 #dadosUsuario {
-    color: white;
+    color: black;
     font-size: 16px;
     text-align: center;
 }
@@ -44,12 +44,12 @@ table {
 }
 
 table, th, td {
-    border: 1px solid white;
+    border: 1px solid black;
     padding: 15px;
     text-align: left;
 }
 
 th{
     background-color: #4CAF50;
-    color: white;
+    color: black;
 }
