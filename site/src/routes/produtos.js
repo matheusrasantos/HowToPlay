@@ -10,6 +10,9 @@ router.get("/", function (req, res) {
 router.get("/listar", function (req, res) {
     produtosController.listarProduto(req, res);
 });
+router.get("/imagem", function (req, res) {
+    produtosController.imagem(req, res);
+});
 
 router.post("/cadastrar", function (req, res) {
     produtosController.cadastrar(req, res);
@@ -27,4 +30,7 @@ router.post("/desativar", function(req,res) {
     produtosController.ativar(req,res);
 });
 
+router.post("/pesquisar", function (req, res) {
+    produtosController.pesquisar(req, res);
+})
 module.exports = router;

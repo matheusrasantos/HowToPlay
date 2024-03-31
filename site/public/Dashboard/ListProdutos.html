@@ -4,15 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HowToPlay | Produtos</title>
     <script src="../js/funcoes.js"></script>
     <script src="../../src/routes/produtos.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="../css/ListProdutos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body onload="ListagemDeProdutos()">
-    //onload="validarSessao(), AtualizarFeed()"
     <div class="header">
         <div class="container">
             <h1 class="titulo"></h1>
@@ -26,100 +25,83 @@
         </div>
     </div>
     <h1>Listar produtos</h1><br><br><br><br>
+    <br><br><br><br>
+    <input type="text" id="inputSearch" onkeyup="PesquisarUsuario()" placeholder="Pesquisar por nome de usuário">
+    
     <a href="./cadastroProduto.html"><button style="margin-left: 70%;"> Adicionar novo produto</button></a>
-    <div id="dadosProduto"></div>
 
+    <div id="dadosProdutos"></div>
 
-
-    </Div><br><br>
+    </div><br><br>
     </div>
     </div>
 </body>
 
 </html>
+
 <script>
-    function ListagemDeProdutos(params) {
-
-
+    function ListagemDeProdutos() {
         fetch("/produtos/listar", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-            console.log("Realizei a consulta")
-            console.log(resposta)
+            console.log("Realizei a consulta");
             resposta.json().then(json => {
-                console.log(json)
-                console.log(JSON.stringify(json))
+                console.log(json);
+                console.log(JSON.stringify(json));
 
                 let tabelaHTML = "<table border='1'>";
-                tabelaHTML += "<tr><th>Id</th><th>Nome</th><th>Preço</th><th>Qtd Estoque</th><th>Status</th><th>Opções</th></tr>";
+                tabelaHTML += "<tr><th>Imagem do Produto</th><th>ID</th><th>Nome</th><th>Estoque</th><th>Preço</th><th>Status</th><th>detalhes</th><th>Opções</th></tr>";
 
-
-                json.forEach(produtos => {
-                    tabelaHTML += "<tr id='linha-" + produtos.id + "'>";
-                    tabelaHTML += "<td>" + produtos.id + "</td>";
-                    tabelaHTML += "<td>" + produtos.nome + "</td>";
-                    tabelaHTML += "<td>" + "R$" + produtos.preco + "</td>";
-                    tabelaHTML += "<td>" + produtos.estoque + "</td>";
-                    var estadoTexto = produtos.estado ? "Desativar" : "Ativar";
-                    tabelaHTML += "<td><button onclick='AtivarBtn(\"" + produtos.nome + "\", " + produtos.estado + ")' id='btn-" + produtos.nome + "'>"
-                        + estadoTexto + "</button></td>";
-                    tabelaHTML += "<td><i class='fas fa-edit' onclick='editarProduto(\"" + produtos.id + "\")'></i> <i class='fas fa-trash-alt' onclick='deletarProduto(\"" + produtos.id + "\")'></i></td>";
-
+                json.forEach(produto => {
+                    tabelaHTML += "<tr id='linha-" + produto.id + "'>";
+                    tabelaHTML += "<td><img src='" + produto.imagem + "' alt='Imagem do Produto'></td>";
+                    tabelaHTML += "<td>" + produto.id + "</td>";
+                    tabelaHTML += "<td>" + produto.nome + "</td>";
+                    tabelaHTML += "<td>" + produto.estoque + "</td>";
+                    tabelaHTML += "<td>R$" + produto.preco + "</td>";
+                    var estadoTexto = produto.estado ? "Ativo" : "Inativo";
+                    var btnTexto = produto.estado ? "Desativar" : "Ativar";
+                    tabelaHTML += "<td>" + estadoTexto + "</td>";
+                    tabelaHTML += "<td><a href='./PagProduto.html'>...</td>";
+                    tabelaHTML += "<td><button onclick='AtivarProduto(\"" + produto.nome + "\", " + produto.estado + ")'>" + btnTexto + "</button></td>";
+                   
+                    tabelaHTML += "<td><i class='fas fa-edit' onclick='editarProduto(\"" + produto.id + "\")'></i> <i class='fas fa-trash-alt' onclick='deletarProduto(\"" + produto.id + "\")'></i></td>";
                     tabelaHTML += "</tr>";
-                });
+                })
 
                 tabelaHTML += "</table>";
 
-
-                document.getElementById("dadosProduto").innerHTML = tabelaHTML;
+                document.getElementById("dadosProdutos").innerHTML = tabelaHTML;
             }).catch(error => console.error('Erro', error))
-        })
-
-
+        });
     }
-    function AtivarBtn(nome, estado) {
-        var btn = document.getElementById('btn-' + nome);
+
+    function AtivarProduto(nome, estado) {
         var nomeVar = nome;
+        var novoEstado = estado === 0 ? 1 : 0;
+        var endpoint = novoEstado ? "/produtos/ativar" : "/produtos/desativar";
 
-        if (estado === 0) {
-            fetch("/produtos/ativar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    nomeServer: nomeVar
-                })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO AtivarBtn()")
-                btn.innerHTML = "Desativar";
-                btn.setAttribute("onclick", "AtivarBtn('" + nomeVar + "', 1)");
-            });
-            console.log("Ativar produto: " + nome);
-        } else {
-            fetch("/produtos/desativar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    nomeServer: nomeVar
-                })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO AtivarBtn()")
-                btn.innerHTML = "Ativar";
-                btn.setAttribute("onclick", "AtivarBtn('" + nomeVar + "', 0)");
-            });
-            console.log("Desativar produto: " + nome);
-        }
+        fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar
+            })
+        }).then(function (resposta) {
+            console.log("Produto " + (novoEstado ? "ativado" : "desativado") + " com sucesso.");
+            ListagemDeProdutos();
+        }).catch(function (error) {
+            console.error('Erro:', error);
+        });
     }
+
     function deletarProduto(id) {
-        
-        var idVar = id
-        console.log(id)
+        var idVar = id;
         fetch("/produtos/deletar", {
             method: "POST",
             headers: {
@@ -129,12 +111,51 @@
                 idServer: idVar
             })
         }).then(function (resposta) {
-        console.log("Produto deletado com sucesso.");
-
-        document.getElementById("linha-" + idVar).remove();
-    })
+            console.log("Produto deletado com sucesso.");
+            document.getElementById("linha-" + idVar).remove();
+        }).catch(function (error) {
+            console.error('Erro:', error);
+        });
     }
+    function PesquisarUsuario() {
+        var nomeUsuarioVar = document.getElementById("inputSearch").value;
 
+        fetch("/produtos/pesquisar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeUsuarioServer: nomeUsuarioVar
+            })
+        }).then(function (resposta) {
+            console.log("Pesquisa realizada com sucesso");
+            resposta.json().then(json => {
+              
+                let tabelaHTML = "<table border='1'>";
+                    tabelaHTML += "<tr><th>Imagem do Produto</th><th>ID</th><th>Nome</th><th>Estoque</th><th>Preço</th><th>Status</th><th>detalhes</th><th>Opções</th></tr>";
+                json.forEach(produto => {
+                    tabelaHTML += "<tr id='linha-" + produto.id + "'>";
+                tabelaHTML += "<td><img src='" + produto.imagem + "' alt='Imagem do Produto' style='width: 100px;'></td>"; // Supondo que a URL da imagem seja armazenada na propriedade 'imagemUrl'
+                tabelaHTML += "<td>" + produto.id + "</td>";
+                tabelaHTML += "<td>" + produto.nome + "</td>";
+                tabelaHTML += "<td>" + produto.estoque + "</td>";
+                tabelaHTML += "<td>R$" + produto.preco + "</td>";
+                var estadoTexto = produto.estado ? "Ativo" : "Inativo";
+                var btnTexto = produto.estado ? "Desativar" : "Ativar";
+                tabelaHTML += "<td>" + estadoTexto + "</td>";
+                tabelaHTML += "<td><a href='./PagProduto.html'>...</td>";
+                tabelaHTML += "<td><button onclick='AtivarProduto(\"" + produto.nome + "\", " + produto.estado + ")'>" + btnTexto + "</button></td>";
+               
+                tabelaHTML += "<td><i class='fas fa-edit' onclick='editarProduto(\"" + produto.id + "\")'></i> <i class='fas fa-trash-alt' onclick='deletarProduto(\"" + produto.id + "\")'></i></td>";
+                tabelaHTML += "</tr>";
+                })
 
+                tabelaHTML += "</table>";
 
+                document.getElementById("dadosProdutos").innerHTML = tabelaHTML;
+            }).catch(error => console.error('Erro', error))
+        });
+    }
+    
 </script>

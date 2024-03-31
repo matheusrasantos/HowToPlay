@@ -1,6 +1,6 @@
-'<!DOCTYPE html>'
+<!DOCTYPE html>
 <html lang="pt-br">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,14 +13,14 @@
 
     <link rel="stylesheet" href="../css/cadstro.css">
     <link rel="icon" href="../assets/icon/favicon.ico">
-   
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 </head>
 
-<body  >
+<body>
     //onload="validarSessao(), atualizarFeed()"
     <div class="header">
         <div class="container">
@@ -47,18 +47,22 @@
                 <h2>Novo Produto</h2>
                 <div class="formulario">
 
-
+                    <span class="tipo_campo">Imagens do Produto</span>
+                    <input id="imagem_input" type="file" accept="image/*" multiple
+                        onchange="mostrarPreviewImagens(event)">
+                    <div id="preview_imagens" class="preview-imagens"></div>
+                 
                     <span class="tipo_campo">Produto</span>
                     <input id="nomeProd_input" type="text" placeholder="Nome do produto">
 
                     <span class="tipo_campo">Preço</span>
                     <input id="precoProd_input" type="double" placeholder="Valor do Produto">
 
-                    
+
                     <span class="tipo_campo">qtd em estoque</span>
                     <input id="estoque_input" type="number" placeholder="******">
 
-                    
+
                     <button class="btn" onclick="cadastrar()">Cadastrar</button>
 
                 </div>
@@ -86,15 +90,40 @@
 </html>
 
 <script>
+    function mostrarPreviewImagens(event) {
+        var input = event.target;
+        var previewContainer = document.getElementById('preview_imagens');
+        previewContainer.innerHTML = ''; // Limpar container de visualização de imagens
+
+        if (input.files && input.files.length > 0) {
+            for (var i = 0; i < input.files.length; i++) {
+                var reader = new FileReader();
+                var imagePreview = document.createElement('img');
+                imagePreview.className = 'preview-imagem';
+                imagePreview.src = '#';
+                imagePreview.alt = 'Preview da Imagem';
+                previewContainer.appendChild(imagePreview);
+
+                reader.onload = (function (image) {
+                    return function (e) {
+                        image.src = e.target.result;
+                        image.style.display = 'block';
+                    };
+                })(imagePreview);
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    }
     function cadastrar() {
         //aguardar();
-
+        var imagemVar = imagem_input.value;
         var nomeVar = nomeProd_input.value;
         var precoVar = precoProd_input.value;
-        var estoqueVar= estoque_input.value;
-        
+        var estoqueVar = estoque_input.value;
 
-        if (nomeVar == "" || precoVar == "" || estoqueVar == "" ) {
+
+        if (nomeVar == "" || precoVar == "" || estoqueVar == "" || imagemVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
 
@@ -105,7 +134,7 @@
             setInterval(sumirMensagem, 5000)
         }
 
-        
+
         fetch("/produtos/cadastrar", {
             method: "POST",
             headers: {
@@ -114,8 +143,9 @@
             body: JSON.stringify({
                 nomeServer: nomeVar,
                 precoServer: precoVar,
-                estoqueServer: estoqueVar
-                
+                estoqueServer: estoqueVar,
+                imagemServer: imagemVar
+
             })
         }).then(function (resposta) {
 
@@ -129,7 +159,7 @@
                 setTimeout(() => {
                     window.location = "ListProdutos.html";
                 }, "2000")
-                
+
                 limparFormulario();
                 finalizarAguardar();
             } else {

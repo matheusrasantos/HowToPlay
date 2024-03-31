@@ -183,8 +183,15 @@ img{
  
 
 }
+.preview-imagem {
+  display: inline-block; 
+  width: 200px;
+  height: auto; 
+  margin-right: 10px; 
+}
+
 .formulario .btn{ 
-  width: 100%;
+  width: 80%;
   background-color: transparent;
   border: 2px black solid;
   padding: 10px;

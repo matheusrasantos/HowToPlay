@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <title>HowTo play | Cadastro</title>
 
@@ -56,7 +57,7 @@
 
                     
                     <span class="tipo_campo">CPF:</span>
-                    <input id="CPF_input" type="cpf" placeholder="******">
+                    <input id="CPF_input" type="number" placeholder="***.***.**-**">
 
                     <select class="tipo_campo" id="cargo">
                         <option value="x">Selecione o cargo</option>
@@ -120,6 +121,12 @@
 
             finalizarAguardar();
             return false;
+        } else  if (CPFVar.length != 11  ) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "CPF INVALIDO";
+
+            finalizarAguardar();
+            return false
         }
         else {
             setInterval(sumirMensagem, 5000)

@@ -23,6 +23,26 @@ function listar(req, res) {
             }
         );
 }
+function pesquisar(req, res) {
+
+    var nome = req.body.nomeUsuarioServer;
+
+    usuarioModel.pesquisar(nome)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao pesquisar! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 function ativar(req, res) {
 
     var nome = req.body.nomeServer;
@@ -170,5 +190,6 @@ module.exports = {
     testar,
     desativar,
     ativar,
-    excluir
+    excluir,
+    pesquisar
 }

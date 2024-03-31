@@ -22,10 +22,50 @@ function listarProduto(req, res) {
             }
         );
 }
+function pesquisar(req, res) {
+
+    var nome = req.body.nomeUsuarioServer;
+
+    produtosModel.pesquisar(nome)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao pesquisar! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+function imagem(req, res) {
+
+    var id = req.body.idServer;
+
+    produtosModel.imagem(id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 function ativar(req, res) {
 
-    var nome = req.body.nomeServer;
+    var nome = req.body.nomeUsuarioServer;
 
     produtosModel.ativar(nome)
         .then(
@@ -90,6 +130,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var preco = req.body.precoServer;
     var estoque = req.body.estoqueServer;
+    var imagem = req.body.imagemServer
    
     console.log(nome)
     console.log(preco)
@@ -103,7 +144,7 @@ function cadastrar(req, res) {
     } else {
         
 
-        produtosModel.cadastrar(nome, preco, estoque)
+        produtosModel.cadastrar(nome, preco, estoque, imagem)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -127,5 +168,7 @@ module.exports = {
     testarProduto,
     ativar,
     desativar,
-    excluir
+    excluir,
+    pesquisar,
+    imagem,
 }

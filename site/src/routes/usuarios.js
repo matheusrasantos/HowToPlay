@@ -31,6 +31,10 @@ router.post("/desativar", function (req, res) {
     usuarioController.desativar(req, res);
 });
 
+router.post("/pesquisar", function (req, res) {
+    usuarioController.pesquisar(req, res);
+});
+
 
 
 module.exports = router;
